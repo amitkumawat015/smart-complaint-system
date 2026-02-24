@@ -1,0 +1,442 @@
+/* Smart Complaint System - Colorful Attractive Styling */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.hero-section {
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+/* Slogan Banner */
+.slogan-banner {
+    background: linear-gradient(90deg, #11998e, #38ef7d);
+    padding: 15px 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.slogan-banner marquee {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Language Toggle */
+.language-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.lang-btn {
+    padding: 10px 20px;
+    border: 2px solid white;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover, .lang-btn.active {
+    background: white;
+    color: #667eea;
+    transform: scale(1.05);
+}
+
+/* Main Container */
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* Logo Section */
+.logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-icon {
+    font-size: 60px;
+    color: #667eea;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.logo-section h1 {
+    font-size: 32px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+}
+
+.logo-section h2 {
+    font-size: 20px;
+    color: #38ef7d;
+    font-weight: 600;
+}
+
+/* Government Badge */
+.govt-badge {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+}
+
+.govt-badge i {
+    margin-right: 8px;
+}
+
+#govt-text-hi {
+    display: none;
+    margin-left: 10px;
+}
+
+/* Form Styles */
+.complaint-form {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.form-group label i {
+    color: #667eea;
+    margin-right: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 3px solid #e0e0e0;
+    border-radius: 15px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: #f9f9f9;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+    outline: none;
+}
+
+.form-group textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* Voice Input */
+.textarea-wrapper {
+    position: relative;
+}
+
+.voice-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.voice-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.voice-btn.listening {
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    animation: pulse 0.5s infinite;
+}
+
+.voice-status {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.voice-status .listening {
+    color: #f5576c;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.voice-status .success {
+    color: #38ef7d;
+}
+
+.voice-status .error {
+    color: #f5576c;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 18px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+#submit-text-hi {
+    display: none;
+}
+
+/* Track Link */
+.track-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.track-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.track-link a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(56, 239, 125, 0.4);
+}
+
+#track-text-hi, #home-text-hi {
+    display: none;
+}
+
+/* Features Section */
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed #e0e0e0;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 15px;
+}
+
+.feature-card i {
+    font-size: 30px;
+    color: #667eea;
+    margin-bottom: 8px;
+}
+
+.feature-card span {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+}
+
+#feature-voice-hi, #feature-lang-hi, #feature-fast-hi {
+    display: none;
+}
+
+/* Result Card */
+.result-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 30px;
+    border-radius: 20px;
+    margin: 30px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.result-card h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.result-card h3 i {
+    color: #38ef7d;
+    margin-right: 10px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #667eea;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 500;
+    text-align: right;
+    max-width: 60%;
+    word-break: break-word;
+}
+
+.category-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+.footer p {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        margin: 20px;
+        padding: 25px;
+    }
+    
+    .logo-section h1 {
+        font-size: 24px;
+    }
+    
+    .logo-section h2 {
+        font-size: 16px;
+    }
+    
+    .features-section {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .feature-card {
+        flex: 1 1 30%;
+    }
+    
+    .language-toggle {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .lang-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Input with voice for track page */
+.input-with-voice {
+    position: relative;
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Complaint - शिकायत ट्रैक करें</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="hero-section">
+    <div class="language-toggle">
+        <button onclick="setLanguage('en')" id="btn-en" class="lang-btn active">🇺🇸 English</button>
+        <button onclick="setLanguage('hi')" id="btn-hi" class="lang-btn">🇮🇳 हिंदी</button>
+    </div>
+
+    <div class="container">
+        <div class="logo-section">
+            <i class="fas fa-search-location logo-icon"></i>
+            <h1 id="main-title">Track Complaint</h1>
+            <h2 id="sub-title">शिकायत ट्रैक करें</h2>
+        </div>
+
+        <form method="POST" class="complaint-form">
+            <div class="form-group">
+                <label id="cid-label"><i class="fas fa-id-card"></i> Complaint ID / शिकायत आईडी</label>
+                <div class="input-with-voice">
+                    <input name="cid" id="cid-input" placeholder="Enter Complaint ID / शिकायत आईडी दर्ज करें" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="track-submit-btn">
+                <i class="fas fa-search"></i>
+                <span id="track-text">Track Complaint</span>
+                <span id="track-text-hi">शिकायत ट्रैक करें</span>
+            </button>
+        </form>
+
+        {% if data %}
+        <div class="result-card">
+            <h3 id="result-title"><i class="fas fa-clipboard-check"></i> Complaint Details / शिकायत विवरण</h3>
+            
+            <div class="detail-row">
+                <span class="detail-label"><i class="fas fa-id-badge"></i> <span id="label-id">ID:</span></span>
+                <span class="detail-value">{{data[0]}}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label"><i class="fas fa-user"></i> <span id="label-name">Name:</span></span>
+                <span class="detail-value">{{data[1]}}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label"><i class="fas fa-comment-alt"></i> <span id="label-complaint">Complaint:</span></span>
+                <span class="detail-value">{{data[2]}}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label"><i class="fas fa-map-marker-alt"></i> <span id="label-location">Location:</span></span>
+                <span class="detail-value">{{data[3]}}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label"><i class="fas fa-tags"></i> <span id="label-category">Category:</span></span>
+                <span class="detail-value category-badge">{{data[4]}}</span>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="track-link">
+            <a href="/" id="home-link">
+                <i class="fas fa-home"></i>
+                <span id="home-text">Back to Home</span>
+                <span id="home-text-hi">होम पर वापस जाएं</span>
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🏛️ Smart Complaint System | स्मार्ट शिकायत प्रणाली | Government Waste Monitoring</p>
+    </footer>
+</div>
+
+<script>
+    const translations = {
+        en: {
+            title: "Track Complaint",
+            subtitle: "Government of India Initiative",
+            cidPlaceholder: "Enter Complaint ID",
+            submit: "Track Complaint",
+            resultTitle: "Complaint Details",
+            labelId: "ID:",
+            labelName: "Name:",
+            labelComplaint: "Complaint:",
+            labelLocation: "Location:",
+            labelCategory: "Category:",
+            home: "Back to Home"
+        },
+        hi: {
+            title: "शिकायत ट्रैक करें",
+            subtitle: "भारत सरकार की पहल",
+            cidPlaceholder: "शिकायत आईडी दर्ज करें",
+            submit: "शिकायत ट्रैक करें",
+            resultTitle: "शिकायत विवरण",
+            labelId: "आईडी:",
+            labelName: "नाम:",
+            labelComplaint: "शिकायत:",
+            labelLocation: "स्थान:",
+            labelCategory: "श्रेणी:",
+            home: "होम पर वापस जाएं"
+        }
+    };
+
+    let currentLang = '{{ lang }}' || 'en';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        document.getElementById('btn-hi').classList.toggle('active', lang === 'hi');
+        
+        document.getElementById('cid-input').placeholder = translations[lang].cidPlaceholder;
+        
+        const hiElements = document.querySelectorAll('[id$="-hi"]');
+        hiElements.forEach(el => {
+            el.style.display = lang === 'hi' ? 'inline' : 'none';
+        });
+        
+        fetch('/set_language/' + lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setLanguage(currentLang);
+    });
+</script>
+
+</body>
+</html>

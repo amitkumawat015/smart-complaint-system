@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Complaint System - स्मार्ट शिकायत प्रणाली</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="hero-section">
+    <div class="slogan-banner">
+        <marquee scrollamount="8">
+            🏛️ "स्वच्छ भारत, स्वस्थ भारत" | "Clean India, Green India" | 🚮 "कचरा मुक्ति, देश की श्रेष्ठता" | "Waste Free Nation, Proud Nation" | 🌿 "सफाई को सम्मान, देश को आनंद"
+        </marquee>
+    </div>
+    
+    <div class="language-toggle">
+        <button onclick="setLanguage('en')" id="btn-en" class="lang-btn active">🇺🇸 English</button>
+        <button onclick="setLanguage('hi')" id="btn-hi" class="lang-btn">🇮🇳 हिंदी</button>
+    </div>
+
+    <div class="container">
+        <div class="logo-section">
+            <i class="fas fa-building-columns logo-icon"></i>
+            <h1 id="main-title">Smart Complaint System</h1>
+            <h2 id="sub-title">स्मार्ट शिकायत प्रणाली</h2>
+        </div>
+
+        <div class="govt-badge">
+            <i class="fas fa-indian-rupee-sign"></i>
+            <span id="govt-text">Government of India Initiative</span>
+            <span id="govt-text-hi">भारत सरकार की पहल</span>
+        </div>
+
+        <form action="/submit" method="POST" class="complaint-form">
+            <div class="form-group">
+                <label id="name-label"><i class="fas fa-user"></i> Your Name / आपका नाम</label>
+                <input type="text" name="name" id="name-input" placeholder="Enter your name / अपना नाम दर्ज करें" required>
+            </div>
+
+            <div class="form-group">
+                <label id="location-label"><i class="fas fa-map-marker-alt"></i> Location / स्थान</label>
+                <input type="text" name="location" id="location-input" placeholder="Enter location / स्थान दर्ज करें" required>
+            </div>
+
+            <div class="form-group">
+                <label id="complaint-label"><i class="fas fa-comment-dots"></i> Your Complaint / आपकी शिकायत</label>
+                <div class="textarea-wrapper">
+                    <textarea name="complaint" id="complaint-input" placeholder="Describe your complaint... / अपनी शिकायत का वर्णन करें..." required></textarea>
+                    <button type="button" class="voice-btn" onclick="startVoiceInput()" title="Voice Input / आवाज़ से दर्ज करें">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div id="voice-status" class="voice-status"></div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                <span id="submit-text">Submit Complaint</span>
+                <span id="submit-text-hi">शिकायत जमा करें</span>
+            </button>
+        </form>
+
+        <div class="track-link">
+            <a href="/track" id="track-link">
+                <i class="fas fa-search-location"></i>
+                <span id="track-text">Track Your Complaint</span>
+                <span id="track-text-hi">अपनी शिकायत को ट्रैक करें</span>
+            </a>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-card">
+                <i class="fas fa-microphone-alt"></i>
+                <span id="feature-voice">Voice Input</span>
+                <span id="feature-voice-hi">आवाज़ से इनपुट</span>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-language"></i>
+                <span id="feature-lang">Bilingual</span>
+                <span id="feature-lang-hi">द्विभाषी</span>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <span id="feature-fast">Fast Response</span>
+                <span id="feature-fast-hi">त्वरित प्रतिक्रिया</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🏛️ Smart Complaint System | स्मार्ट शिकायत प्रणाली | Government Waste Monitoring Initiative</p>
+    </footer>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+    // Language translations
+    const translations = {
+        en: {
+            title: "Smart Complaint System",
+            subtitle: "Government of India Initiative",
+            namePlaceholder: "Enter your name",
+            locationPlaceholder: "Enter location",
+            complaintPlaceholder: "Describe your complaint...",
+            submit: "Submit Complaint",
+            track: "Track Your Complaint",
+            voiceStart: "Click to speak...",
+            voiceListening: "Listening...",
+            voiceError: "Voice not supported",
+            features: ["Voice Input", "Bilingual", "Fast Response"]
+        },
+        hi: {
+            title: "स्मार्ट शिकायत प्रणाली",
+            subtitle: "भारत सरकार की पहल",
+            namePlaceholder: "अपना नाम दर्ज करें",
+            locationPlaceholder: "स्थान दर्ज करें",
+            complaintPlaceholder: "अपनी शिकायत का वर्णन करें...",
+            submit: "शिकायत जमा करें",
+            track: "अपनी शिकायत को ट्रैक करें",
+            voiceStart: "बोलने के लिए क्लिक करें...",
+            voiceListening: "सुन रहे हैं...",
+            voiceError: "आवाज़ समर्थित नहीं है",
+            features: ["आवाज़ से इनपुट", "द्विभाषी", "त्वरित प्रतिक्रिया"]
+        }
+    };
+
+    let currentLang = '{{ lang }}' || 'en';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        document.getElementById('btn-hi').classList.toggle('active', lang === 'hi');
+        
+        // Update placeholders
+        document.getElementById('name-input').placeholder = translations[lang].namePlaceholder + (lang === 'hi' ? "" : "");
+        document.getElementById('location-input').placeholder = translations[lang].locationPlaceholder + (lang === 'hi' ? "" : "");
+        document.getElementById('complaint-input').placeholder = translations[lang].complaintPlaceholder;
+        
+        // Show/hide Hindi elements
+        const hiElements = document.querySelectorAll('[id$="-hi"]');
+        hiElements.forEach(el => {
+            el.style.display = lang === 'hi' ? 'inline' : 'none';
+        });
+        
+        // Save language preference
+        fetch('/set_language/' + lang);
+    }
+
+    function startVoiceInput() {
+        const statusEl = document.getElementById('voice-status');
+        
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            statusEl.innerHTML = '<span class="error">' + translations[currentLang].voiceError + '</span>';
+            return;
+        }
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        
+        recognition.lang = currentLang === 'hi' ? 'hi-IN' : 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        statusEl.innerHTML = '<span class="listening">' + translations[currentLang].voiceListening + '</span>';
+
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('complaint-input').value = transcript;
+            statusEl.innerHTML = '<span class="success"><i class="fas fa-check"></i> ' + transcript + '</span>';
+        };
+
+        recognition.onerror = function(event) {
+            statusEl.innerHTML = '<span class="error">' + translations[currentLang].voiceError + '</span>';
+        };
+
+        recognition.onend = function() {
+            setTimeout(() => {
+                statusEl.innerHTML = '';
+            }, 3000);
+        };
+    }
+
+    // Initialize language
+    document.addEventListener('DOMContentLoaded', function() {
+        setLanguage(currentLang);
+    });
+</script>
+
+</body>
+</html>
